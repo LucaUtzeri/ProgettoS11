@@ -23,7 +23,7 @@
             >Home</a
           >
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="user">
           <a
             class="nav-link"
             [routerLink]="['movies']"
@@ -31,12 +31,12 @@
             >Movies</a
           >
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="!user">
           <a class="nav-link" [routerLink]="['login']" routerLinkActive="active"
             >Log In</a
           >
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="!user">
           <a
             class="nav-link"
             [routerLink]="['register']"
@@ -45,15 +45,8 @@
           >
         </li>
       </ul>
-      <form class="d-flex" role="search">
-        <input
-          class="form-control me-2"
-          type="search"
-          placeholder="Search"
-          aria-label="Search"
-        />
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+      <h6 *ngIf="user">{{ user.user.name }}</h6>
+      <button type="button" *ngIf="user" (click)="logout()">Logout</button>
     </div>
   </div>
 </nav>

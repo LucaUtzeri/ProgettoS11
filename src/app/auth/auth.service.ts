@@ -38,7 +38,6 @@ export class AuthService {
   }
 
   restore() {
-    // Utilizzato nel caso in cui l'utente abbandoni l'applicazione senza fare logout; se rientra e il token è ancora valido, non dovrà rifare login
     const user = localStorage.getItem('user');
     if (!user) {
       this.router.navigate(['/login']);
@@ -49,7 +48,7 @@ export class AuthService {
       this.router.navigate(['/login']);
       return;
     }
-    this.authSubj.next(userData); // Rientrando nell'applicazione dopo essere usciti, il BehaviourSubject è di nuovo null: in questo modo riceve i valori presenti nel localStorage e comunica di nuovo a user$ la presenza dell'utente
+    this.authSubj.next(userData);
   }
 
   register(data: {
@@ -81,15 +80,15 @@ export class AuthService {
         break;
 
       case 'Email format is invalid':
-        return throwError('Formato mail non valido');
+        return throwError('Email not valid');
         break;
 
       case 'Cannot find user':
-        return throwError('Utente inesistente');
+        return throwError('User does not exist');
         break;
 
       default:
-        return throwError('Errore nella chiamata');
+        return throwError('Callback error');
         break;
     }
   }
